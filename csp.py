@@ -45,7 +45,16 @@ class SudokuCSP:
                     if(i, j) != (row, col):
                         neighbors.add((i,j))
             return neighbors
-
+        
+    def get_all_arcs(self):
+        arcs = set()
+        for row in range(9):
+            for col in range(9):
+                for neighbor in self.neighbors[row][col]:
+                # Ensure we only add one direction of each arc
+                    if (neighbor, (row, col)) not in arcs:
+                        arcs.add(((row, col), neighbor))
+        return sorted(list(arcs))
 
 # Example usage:
 # Assuming input_puzzle is a 9x9 grid (list of lists) with 0 representing empty cells
